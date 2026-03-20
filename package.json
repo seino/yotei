@@ -2,7 +2,16 @@
   "name": "yotei",
   "version": "1.0.0",
   "description": "Human-readable task scheduler for Node.js — inspired by Python schedule",
+  "author": "Akihiro Seino",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seino/yotei.git"
+  },
+  "homepage": "https://github.com/seino/yotei#readme",
+  "bugs": {
+    "url": "https://github.com/seino/yotei/issues"
+  },
   "type": "module",
   "exports": {
     ".": {
