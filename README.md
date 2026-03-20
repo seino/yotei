@@ -3,7 +3,7 @@
 Human-readable task scheduler for Node.js — inspired by Python [schedule](https://github.com/dbader/schedule).
 
 ```ts
-import { schedule } from 'yotei';
+import { schedule } from 'yoteijs';
 
 schedule.every(10).minutes.do(() => console.log('runs every 10 min'));
 schedule.every().day.at('10:30').do(fetchReport);
@@ -44,7 +44,7 @@ schedule.start();
 ## Install
 
 ```bash
-npm install yotei
+npm install yoteijs
 ```
 
 Requires Node.js 18+.
@@ -52,7 +52,7 @@ Requires Node.js 18+.
 ## Quick Start
 
 ```ts
-import { schedule } from 'yotei';
+import { schedule } from 'yoteijs';
 
 // Every 30 seconds
 schedule.every(30).seconds.do(() => {
@@ -230,7 +230,7 @@ Explicit timezone support (e.g. `at('09:00', 'Asia/Tokyo')`) is planned for a fu
 The default export is a shared instance. Create separate instances when needed:
 
 ```ts
-import { Scheduler } from 'yotei';
+import { Scheduler } from 'yoteijs';
 
 const apiScheduler = new Scheduler();
 const dbScheduler = new Scheduler();
@@ -241,7 +241,7 @@ const dbScheduler = new Scheduler();
 yotei provides `MockTimer` for deterministic testing without real timers:
 
 ```ts
-import { Scheduler, MockTimer } from 'yotei';
+import { Scheduler, MockTimer } from 'yoteijs';
 import { vi, describe, it, expect } from 'vitest';
 
 describe('my scheduled task', () => {

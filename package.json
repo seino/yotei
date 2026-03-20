@@ -1,5 +1,5 @@
 {
-  "name": "yotei",
+  "name": "yoteijs",
   "version": "1.0.0",
   "description": "Human-readable task scheduler for Node.js — inspired by Python schedule",
   "author": "Akihiro Seino",
