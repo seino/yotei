@@ -25,6 +25,13 @@ describe('ScheduleBuilder', () => {
     }).toThrow('>= 1');
   });
 
+  it('throws on every(NaN / Infinity / non-integer)', () => {
+    const { scheduler } = createTestScheduler();
+    expect(() => scheduler.every(NaN).minutes.do(vi.fn())).toThrow('finite integer');
+    expect(() => scheduler.every(Infinity).minutes.do(vi.fn())).toThrow('finite integer');
+    expect(() => scheduler.every(1.5).minutes.do(vi.fn())).toThrow('finite integer');
+  });
+
   it('throws when to() value is <= every() value', () => {
     const { scheduler } = createTestScheduler();
     expect(() => {
@@ -35,11 +42,25 @@ describe('ScheduleBuilder', () => {
     }).toThrow('greater than every()');
   });
 
+  it('throws on to(NaN / Infinity / non-integer)', () => {
+    const { scheduler } = createTestScheduler();
+    expect(() => scheduler.every(1).to(NaN).minutes.do(vi.fn())).toThrow('finite integer');
+    expect(() => scheduler.every(1).to(Infinity).minutes.do(vi.fn())).toThrow('finite integer');
+    expect(() => scheduler.every(1).to(2.5).minutes.do(vi.fn())).toThrow('finite integer');
+  });
+
   it('throws on times(0)', () => {
     const { scheduler } = createTestScheduler();
     expect(() => {
       scheduler.every(10).minutes.times(0).do(vi.fn());
     }).toThrow('>= 1');
+  });
+
+  it('throws on times(NaN / Infinity / non-integer)', () => {
+    const { scheduler } = createTestScheduler();
+    expect(() => scheduler.every(10).minutes.times(NaN).do(vi.fn())).toThrow('finite integer');
+    expect(() => scheduler.every(10).minutes.times(Infinity).do(vi.fn())).toThrow('finite integer');
+    expect(() => scheduler.every(10).minutes.times(1.5).do(vi.fn())).toThrow('finite integer');
   });
 
   it('throws when at() is used with minutes', () => {

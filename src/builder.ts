@@ -296,14 +296,21 @@ export class ScheduleBuilder {
     if (!this._unit) {
       throw new Error('yotei: time unit not specified. Use .minutes / .hours / etc.');
     }
-    if (this._interval <= 0) {
-      throw new Error('yotei: every() value must be >= 1.');
+    if (!Number.isFinite(this._interval) || !Number.isInteger(this._interval) || this._interval <= 0) {
+      throw new Error('yotei: every() value must be a finite integer >= 1.');
     }
-    if (this._intervalMax !== null && this._intervalMax <= this._interval) {
-      throw new Error('yotei: to() value must be greater than every() value.');
+    if (this._intervalMax !== null) {
+      if (!Number.isFinite(this._intervalMax) || !Number.isInteger(this._intervalMax)) {
+        throw new Error('yotei: to() value must be a finite integer.');
+      }
+      if (this._intervalMax <= this._interval) {
+        throw new Error('yotei: to() value must be greater than every() value.');
+      }
     }
-    if (this._maxTimes !== null && this._maxTimes <= 0) {
-      throw new Error('yotei: times() value must be >= 1.');
+    if (this._maxTimes !== null) {
+      if (!Number.isFinite(this._maxTimes) || !Number.isInteger(this._maxTimes) || this._maxTimes <= 0) {
+        throw new Error('yotei: times() value must be a finite integer >= 1.');
+      }
     }
     if (this._atTime !== null && this._unit !== 'days' && this._unit !== 'weeks') {
       throw new Error('yotei: at() can only be used with days or weeks.');
