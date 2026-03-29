@@ -314,5 +314,18 @@ describe('Scheduler', () => {
 
       expect(fn).not.toHaveBeenCalled();
     });
+
+    it('throws on resolution < 10', () => {
+      const { scheduler } = createTestScheduler();
+      expect(() => scheduler.start(0)).toThrow('>= 10');
+      expect(() => scheduler.start(5)).toThrow('>= 10');
+      expect(() => scheduler.start(-1)).toThrow('>= 10');
+    });
+
+    it('throws on NaN / Infinity resolution', () => {
+      const { scheduler } = createTestScheduler();
+      expect(() => scheduler.start(NaN)).toThrow('>= 10');
+      expect(() => scheduler.start(Infinity)).toThrow('>= 10');
+    });
   });
 });

@@ -158,6 +158,9 @@ export class Scheduler extends EventEmitter {
    * @param resolution - Check interval in milliseconds. Defaults to 1000 (1 second)
    */
   start(resolution = 1000): void {
+    if (!Number.isFinite(resolution) || resolution < 10) {
+      throw new Error('yotei: resolution must be a finite number >= 10 (ms).');
+    }
     this.timer.start(() => {
       void this.runPending();
     }, resolution);

@@ -55,6 +55,32 @@ describe('IntervalTimer', () => {
       timer.stop();
     }).not.toThrow();
   });
+
+  describe('input validation', () => {
+    it('throws on ms < 10', () => {
+      const timer = new IntervalTimer();
+      expect(() => timer.start(vi.fn(), 0)).toThrow('>= 10');
+      expect(() => timer.start(vi.fn(), 5)).toThrow('>= 10');
+      expect(() => timer.start(vi.fn(), -1)).toThrow('>= 10');
+    });
+
+    it('throws on NaN', () => {
+      const timer = new IntervalTimer();
+      expect(() => timer.start(vi.fn(), NaN)).toThrow('>= 10');
+    });
+
+    it('throws on Infinity', () => {
+      const timer = new IntervalTimer();
+      expect(() => timer.start(vi.fn(), Infinity)).toThrow('>= 10');
+      expect(() => timer.start(vi.fn(), -Infinity)).toThrow('>= 10');
+    });
+
+    it('accepts ms = 10', () => {
+      const timer = new IntervalTimer();
+      expect(() => timer.start(vi.fn(), 10)).not.toThrow();
+      timer.stop();
+    });
+  });
 });
 
 describe('MockTimer', () => {

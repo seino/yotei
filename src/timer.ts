@@ -34,6 +34,9 @@ export class IntervalTimer implements ITimer {
    * @param ms - Interval in milliseconds
    */
   start(fn: () => void, ms: number): void {
+    if (!Number.isFinite(ms) || ms < 10) {
+      throw new Error('yotei: timer interval must be a finite number >= 10 (ms).');
+    }
     this.stop();
     this.handle = setInterval(fn, ms);
     // Prevent the timer alone from keeping the Node.js process alive
